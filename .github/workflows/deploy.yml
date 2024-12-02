@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
@@ -31,4 +31,8 @@ jobs:
         run: |
           npm install -g heroku
           heroku git:remote -a $HEROKU_APP_NAME
-          git push heroku main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Deploy from GitHub Actions"
+          git push heroku main --force

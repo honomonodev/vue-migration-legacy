@@ -12,8 +12,7 @@ const routes = [
   { path: '/', component: DashboardView },
   { path: '/login', component: LoginView },
   { path: '/profile', component: ProfileView },
-  { path: '/tasks', component: TaskListView },
-  { path: '/time-tracker', component: TimeTrackerView }
+ 
 ]
 
 export default new Router({

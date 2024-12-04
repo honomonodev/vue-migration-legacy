@@ -1,17 +1,17 @@
 <template>
-  <div class="home">
-    <h1>Welcome to the Home Page</h1>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const message = ref('Welcome to the Home Page');
+const msg = ref('Hello, Vue 3!');
 </script>
 
 <style scoped>
-.home {
+.hello {
   padding: 20px;
 }
 </style>

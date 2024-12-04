@@ -1,39 +1,26 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import LoginView from '@/views/LoginView.vue';
-import RegisterView from '@/views/RegisterView.vue';
-import DashboardView from '@/views/DashboardView.vue';
-import store from '../store';
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import HomeView from "../views/HomeView.vue";
 
-Vue.use(Router);
-
-const routes = [
-  { path: '/', component: HomeView },
-  { path: '/login', component: LoginView },
-  { path: '/register', component: RegisterView },
-  { 
-    path: '/dashboard', 
-    component: DashboardView,
-    meta: { requiresAuth: true }
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/",
+    name: "home",
+    component: HomeView,
+  },
+  {
+    path: "/about",
+    name: "about",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
 ];
 
-const router = new Router({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters.isAuthenticated) {
-      next({ path: '/login' });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
 });
 
 export default router;

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
@@ -12,18 +12,29 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "outDir": "./dist",
-    "rootDir": "./src",
     "types": [
-      "node",
-      "webpack-env"
+      "webpack-env",
+      "node"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
     ]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

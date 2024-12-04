@@ -1,21 +1,39 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import DashboardView from '@/views/DashboardView.vue'
-import LoginView from '@/views/LoginView.vue'
-import ProfileView from '@/views/ProfileView.vue'
-import TaskListView from '@/views/TaskListView.vue'
-import TimeTrackerView from '@/views/TimeTrackerView.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import HomeView from '@/views/HomeView.vue';
+import LoginView from '@/views/LoginView.vue';
+import RegisterView from '@/views/RegisterView.vue';
+import DashboardView from '@/views/DashboardView.vue';
+import store from '../store';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const routes = [
-  { path: '/', component: DashboardView },
+  { path: '/', component: HomeView },
   { path: '/login', component: LoginView },
-  { path: '/profile', component: ProfileView },
- 
-]
+  { path: '/register', component: RegisterView },
+  { 
+    path: '/dashboard', 
+    component: DashboardView,
+    meta: { requiresAuth: true }
+  },
+];
 
-export default new Router({
+const router = new Router({
   mode: 'history',
-  routes
-})
+  routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isAuthenticated) {
+      next({ path: '/login' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

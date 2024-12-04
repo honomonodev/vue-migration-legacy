@@ -1,9 +1,7 @@
-// Define the state interface
 interface AuthState {
   user: User | null;
 }
 
-// Define the User interface (you can adjust this based on your actual user structure)
 interface User {
   id: number;
   name: string;
@@ -11,33 +9,36 @@ interface User {
 }
 
 const state: AuthState = {
-  user: null
-}
+  user: null,
+};
 
 const mutations = {
   setUser(state: AuthState, user: User) {
     state.user = user;
-  }
-}
+  },
+  clearUser(state: AuthState) {
+    state.user = null;
+  },
+};
 
 const actions = {
-  login({ commit }: { commit: (mutation: string, payload: any) => void }, user: User) {
+  login({ commit }: { commit: Function }, user: User) {
     commit('setUser', user);
   },
-  logout({ commit }: { commit: (mutation: string, payload: any) => void }) {
-    commit('setUser', null);
-  }
-}
+  logout({ commit }: { commit: Function }) {
+    commit('clearUser');
+  },
+};
 
 const getters = {
   isAuthenticated: (state: AuthState) => !!state.user,
-  user: (state: AuthState) => state.user
-}
+  user: (state: AuthState) => state.user,
+};
 
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters
-}
+  getters,
+};

@@ -1,18 +1,16 @@
 <template>
-  <DefaultLayout>
-    <Dashboard />
-  </DefaultLayout>
+  <div>
+    <DashboardComponent />
+  </div>
 </template>
 
 <script>
-import Dashboard from '@/components/Dashboard.vue'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import DashboardComponent from '@/components/Dashboard.vue';
 
 export default {
   name: 'DashboardView',
   components: {
-    Dashboard,
-    DefaultLayout
-  }
-}
+    DashboardComponent,
+  },
+};
 </script>
